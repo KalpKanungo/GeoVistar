@@ -64,3 +64,6 @@ hf_cache/
 # VSCode
 # ----------------------------
 .vscode/
+
+assets/
+demo_images/
