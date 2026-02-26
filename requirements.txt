@@ -1,0 +1,16 @@
+torch
+torchvision
+torchaudio
+opencv-python
+numpy
+scipy
+scikit-learn
+pillow
+matplotlib
+ultralytics
+timm
+transformers
+gradio
+huggingface-hub
+tqdm
+pyyaml
