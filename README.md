@@ -1,12 +1,19 @@
 ---
 title: GeoVistar
+
 emoji: 🏠
 colorFrom: blue
 colorTo: indigo
 sdk: gradio
+emoji: 🌖
+colorFrom: indigo
+colorTo: gray
+sdk: gradio
+sdk_version: 6.7.0
 app_file: app.py
 pinned: false
 ---
+
 
 # GeoVistar 🏠📐  
 ### AI-Powered Augmented Reality Room Designer
@@ -42,3 +49,6 @@ This project integrates Computer Vision + Geometry + Deep Learning to create a r
 
 ---
 
+=======
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
+>>>>>>> 1657b376028f2a4e648e86a4a40013669411fc57
