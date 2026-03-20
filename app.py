@@ -243,14 +243,6 @@ def download_image(scene):
 
 
 # ========================
-# LOAD EXAMPLE FURNITURE
-# ========================
-def load_example_furniture(img_path):
-    img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED)
-    return [img], [img]
-
-
-# ========================
 # UI
 # ========================
 with gr.Blocks() as demo:
@@ -261,33 +253,23 @@ with gr.Blocks() as demo:
 
     with gr.Tab("Furniture Library"):
 
-        gr.Markdown("### 📁 Upload your own furniture or click a sample below")
-
         upload_furniture = gr.File(file_count="multiple", file_types=["image"])
         furniture_gallery = gr.Gallery(columns=4)
 
         def load_furniture(files):
+            if files is None:
+                return [], []
             images = []
             for f in files:
                 img = cv2.imread(f.name, cv2.IMREAD_UNCHANGED)
-                images.append(img)
+                if img is not None:
+                    images.append(img)
             return images, images
 
         upload_furniture.change(
             load_furniture,
             inputs=upload_furniture,
             outputs=[furniture_gallery, furniture_state]
-        )
-
-        gr.Markdown("#### 🛋️ Sample Furniture — click one to load it")
-        gr.Examples(
-            examples=[
-                ["examples/chair.png"],
-                ["examples/sofa.png"],
-                ["examples/side.png"],
-            ],
-            inputs=upload_furniture,
-            label="Sample Furniture"
         )
 
         def select_furniture(lib, evt: gr.SelectData):
@@ -301,20 +283,7 @@ with gr.Blocks() as demo:
 
     with gr.Tab("Room Designer"):
 
-        gr.Markdown("### 🏠 Upload a room or click a sample below, then place furniture on the floor")
-
         room_display = gr.Image(type="numpy", label="Upload Room & Click to Place")
-
-        gr.Markdown("#### 🖼️ Sample Rooms")
-        gr.Examples(
-            examples=[
-                ["examples/room1.png"],
-                ["examples/room2.png"],
-                ["examples/room3.png"],
-            ],
-            inputs=room_display,
-            label="Sample Rooms"
-        )
 
         # ===== Row 1 =====
         with gr.Row():
@@ -361,6 +330,8 @@ with gr.Blocks() as demo:
         )
 
         def set_active(scene, active):
+            if scene is None or active is None:
+                return scene
             scene["active_furniture"] = active
             return scene
 
